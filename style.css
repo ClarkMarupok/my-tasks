@@ -1,0 +1,103 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #7b8294;
+  --accent: #4f6bed;
+  --accent-dark: #3c54c9;
+  --border: #e3e6ec;
+  --danger: #d64545;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.app {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 8px 30px rgba(20, 30, 60, 0.08);
+  align-self: flex-start;
+}
+
+header h1 { margin: 0; font-size: 1.6rem; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+.center { text-align: center; }
+
+#task-form {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0 16px;
+}
+
+#task-input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+#task-input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+#task-form button {
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+#task-form button:hover { background: var(--accent-dark); }
+
+.filters { display: flex; gap: 6px; margin-bottom: 12px; }
+.filter {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+}
+.filter.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+li input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+li span { flex: 1; word-break: break-word; }
+li.done span { text-decoration: line-through; color: var(--muted); }
+
+li .delete {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+li .delete:hover { color: var(--danger); }
+
+footer { margin-top: 16px; text-align: right; }
+.link { border: none; background: none; color: var(--muted); font-size: 0.9rem; }
+.link:hover { color: var(--danger); }
