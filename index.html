@@ -3,35 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Tasks</title>
+  <title>DevTasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app">
-    <header>
-      <h1>My Tasks</h1>
-      <p id="counter" class="muted">0 tasks left</p>
-    </header>
 
-    <form id="task-form" autocomplete="off">
-      <input id="task-input" type="text" placeholder="What do you need to do?" required maxlength="120">
-      <button type="submit">Add</button>
-    </form>
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10l3 2-3 2"/><path d="M12 15h5"/></svg>
+      <span class="brand-name">DevTasks</span>
+      <svg class="ico small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </div>
+    <div class="top-right">
+      <span class="user">j.dev</span>
+      <button id="bell" class="icon-btn" aria-label="Notifications">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <i id="bell-dot" class="dot" hidden></i>
+      </button>
+      <div class="avatar" title="j.dev">JD</div>
+    </div>
+  </header>
 
-    <nav class="filters" aria-label="Filter tasks">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="active">Active</button>
-      <button class="filter" data-filter="done">Done</button>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <nav>
+      <button class="nav-btn active" data-view="dashboard" title="Dashboard" aria-label="Dashboard">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      </button>
+      <button class="nav-btn" data-view="projects" title="Projects" aria-label="Projects">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      </button>
+      <button class="nav-btn" data-view="settings" title="Settings" aria-label="Settings">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
     </nav>
+  </aside>
 
-    <ul id="task-list"></ul>
+  <!-- Main -->
+  <main class="main">
+    <h2 id="page-title" class="page-title">Dashboard</h2>
 
-    <p id="empty" class="muted center" hidden>Nothing here yet. Add your first task above.</p>
+    <!-- Dashboard view -->
+    <section id="view-dashboard" class="view">
+      <div class="card">
+        <div class="card-head">
+          <h1>My Tasks</h1>
+          <span id="counter" class="muted">0 active tasks left</span>
+        </div>
 
-    <footer>
-      <button id="clear-done" class="link">Clear completed</button>
-    </footer>
+        <form id="task-form" autocomplete="off">
+          <input id="task-input" class="grow" type="text" placeholder="What do you need to do?" required maxlength="120">
+          <input id="project-input" type="text" list="project-list" placeholder="Project" maxlength="40">
+          <datalist id="project-list"></datalist>
+          <select id="priority-input" aria-label="Priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+            <option value="critical">Critical</option>
+          </select>
+          <button type="submit" class="btn-primary">Add Task</button>
+        </form>
+
+        <div class="list-head">
+          <h3>My Tasks <small id="subcount" class="muted"></small></h3>
+          <div class="filters" role="group" aria-label="Filter tasks">
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="active">Active</button>
+            <button class="filter" data-filter="progress">In Progress</button>
+            <button class="filter" data-filter="done">Done</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Task Name</th>
+                <th>Project</th>
+                <th>Priority Tag</th>
+                <th>Status</th>
+                <th class="col-x"></th>
+              </tr>
+            </thead>
+            <tbody id="task-body"></tbody>
+          </table>
+          <p id="empty" class="muted center" hidden>No tasks here yet. Add one above.</p>
+        </div>
+
+        <div class="card-foot">
+          <button id="clear-done" class="link">Clear completed</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects view -->
+    <section id="view-projects" class="view" hidden>
+      <div id="project-grid" class="project-grid"></div>
+      <p id="projects-empty" class="muted center" hidden>No projects yet. Add a task with a project name.</p>
+    </section>
+
+    <!-- Settings view -->
+    <section id="view-settings" class="view" hidden>
+      <div class="card narrow">
+        <div class="card-head"><h1>Settings</h1></div>
+        <p class="muted">Your tasks are saved in this browser only.</p>
+        <div class="settings-actions">
+          <button id="reset-demo" class="btn-ghost">Reset sample data</button>
+          <button id="clear-all" class="btn-danger">Delete all tasks</button>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div id="toast" class="toast" role="status" hidden></div>
 
   <script src="script.js"></script>
 </body>
